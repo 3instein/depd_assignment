@@ -18,7 +18,10 @@ class ViewKeyboardPage extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Color.fromRGBO(220, 215, 213, 100), Colors.white])),
+                colors: [
+              Color.fromRGBO(220, 215, 213, 100),
+              Colors.transparent
+            ])),
         child: Column(
           children: [
             Flexible(
