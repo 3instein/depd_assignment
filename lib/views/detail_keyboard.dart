@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'card_image.dart';
 
-class ViewKeyboardPage extends StatelessWidget {
-  const ViewKeyboardPage({super.key});
-  static const String images = 'assets/images/';
+class DetailKeyboardPage extends StatefulWidget {
+  const DetailKeyboardPage({super.key});
 
+  @override
+  State<DetailKeyboardPage> createState() => _DetailKeyboardPageState();
+}
+
+class _DetailKeyboardPageState extends State<DetailKeyboardPage> {
+  bool favorite = false;
+
+  static const images = 'assets/images/';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,11 +47,15 @@ class ViewKeyboardPage extends StatelessWidget {
                       height: 48,
                       margin: const EdgeInsets.only(top: 6.0, right: 6.0),
                       child: FloatingActionButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            favorite = !favorite;
+                          });
+                        },
                         backgroundColor: Colors.white,
-                        child: const Icon(
+                        child: Icon(
                           Icons.favorite,
-                          color: Colors.red,
+                          color: favorite ? Colors.redAccent : Colors.grey,
                         ),
                       ),
                     )
@@ -64,22 +75,22 @@ class ViewKeyboardPage extends StatelessWidget {
                         child: CardImage(image: '${images}child-image-4.jpg')),
                   ],
                 )),
+            Container(
+              margin:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 0.0),
+              alignment: Alignment.center,
+              child: const Text(
+                "F2-84 by Geonworks",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ),
             Flexible(
                 flex: 4,
                 child: ListView(
                   children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 0.0),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        "F2-84 by Geonworks",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
                     Container(
                       margin: const EdgeInsets.all(8),
                       child: const Text(
