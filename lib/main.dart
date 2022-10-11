@@ -1,3 +1,4 @@
+import 'package:depd_mission1/views/add_keyboard.dart';
 import 'package:depd_mission1/views/detail_keyboard.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +12,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(primaryColor: const Color.fromRGBO(220, 215, 213, 100)),
       debugShowCheckedModeBanner: false,
-      home: DetailKeyboardPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const DetailKeyboardPage(),
+        'addKeyboard': (context) => const AddKeyboardPage()
+      },
     );
   }
 }

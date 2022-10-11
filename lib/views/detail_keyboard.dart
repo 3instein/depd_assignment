@@ -1,3 +1,4 @@
+import 'package:depd_mission1/views/add_keyboard.dart';
 import 'package:flutter/material.dart';
 
 import 'card_image.dart';
@@ -96,9 +97,22 @@ class _DetailKeyboardPageState extends State<DetailKeyboardPage> {
                       child: const Text(
                           "It is a product designed for overseas sales of the F1-8X and focused on its appearance. The plate was designed in the same way as the F1-8X, but with the feedback from the F1-8X customers, the typing feeling was designed a little stiffer It was sold on pre-order in Sep 2021, and a total of 600 keyboards were produced and sold.\nWe are currently preparing for Priority R2.\n\n- Mount: Gasket O-ring, Plateless\n- Typing angle: 9˚\n- Front Height: 16.3mm\n- Materials\n: Cases- A6063-T6\n: Weights - Stainless Steel 316L\n- 3.2kg\n- Compatible PCBs - H87nu\n- Color - Silver/Black/Lavender(GMK Collab)"),
                     ),
-                    Image.asset('${images}desc-image.jpeg')
+                    Image.asset('${images}desc-image.jpeg'),
                   ],
-                ))
+                )),
+            Container(
+              padding: const EdgeInsets.all(32),
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push<dynamic>(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddKeyboardPage()));
+                },
+                child: const Icon(Icons.add),
+              ),
+            )
           ],
         ),
       ),
