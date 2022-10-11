@@ -1,3 +1,4 @@
+import 'package:depd_mission1/views/detail_keyboard.dart';
 import 'package:flutter/material.dart';
 
 class AddKeyboardPage extends StatefulWidget {
@@ -8,8 +9,8 @@ class AddKeyboardPage extends StatefulWidget {
 }
 
 class _AddKeyboardPageState extends State<AddKeyboardPage> {
-  var layout = ['TKL', '75', '65', '60'];
-  String dropdownValue = 'TKL';
+  var layout = ['TKL', '75%', '65%', '60%'];
+  String? _dropdownValue = null;
 
   @override
   void initState() {
@@ -45,7 +46,7 @@ class _AddKeyboardPageState extends State<AddKeyboardPage> {
                 keyboardType: TextInputType.name,
                 decoration: const InputDecoration(
                   labelText: "Keyboard name",
-                  prefixIcon: Icon(Icons.abc),
+                  prefixIcon: Icon(Icons.keyboard),
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
@@ -60,7 +61,7 @@ class _AddKeyboardPageState extends State<AddKeyboardPage> {
                 keyboardType: TextInputType.name,
                 decoration: const InputDecoration(
                   labelText: "Keyboard maker",
-                  prefixIcon: Icon(Icons.abc),
+                  prefixIcon: Icon(Icons.keyboard),
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
@@ -70,23 +71,73 @@ class _AddKeyboardPageState extends State<AddKeyboardPage> {
                 },
               ),
               const SizedBox(height: 16),
-              DropdownButton(
+              DropdownButtonFormField(
                   isExpanded: true,
+                  hint: const Text("Layout"),
                   icon: const Icon(Icons.keyboard_arrow_down),
-                  value: dropdownValue,
+                  value: _dropdownValue,
                   items: layout.map((String items) {
                     return DropdownMenuItem(
                       value: items,
                       child: Text(items),
                     );
                   }).toList(),
+                  validator: (value) {
+                    return value == null ? 'Option be selected' : null;
+                  },
                   onChanged: (String? value) {
                     setState(() {
-                      dropdownValue = value!;
+                      _dropdownValue = value!;
                     });
                   }),
               const SizedBox(height: 32),
-              ElevatedButton(onPressed: () {}, child: const Text("Submit"))
+              ElevatedButton(
+                  onPressed: () {
+                    if (_loginKey.currentState!.validate()) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Add keyboard confirmation'),
+                              content: Text(
+                                  'Keyboard name: ${ctrlName.text}\nKeyboard maker: ${ctrlMaker.text}\nKeyboard layout: ${_dropdownValue.toString()}'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('Okay'),
+                                  onPressed: () {
+                                    Navigator.pushAndRemoveUntil<dynamic>(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const DetailKeyboardPage()),
+                                      (route) => false,
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          });
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Add keyboard failed'),
+                              content:
+                                  const Text("Please fill all the fields!"),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('Okay'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          });
+                    }
+                  },
+                  child: const Text("Submit"))
             ],
           ),
         ),
